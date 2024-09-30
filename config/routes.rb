@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 # このようにresources :usersの記述が上にあることによりログインページにアクセスしても、usersのshowページとして呼び出されるため無限ループが発生している状態です。
 # これを解消するために、devise_forをresources :usersの記述より上にすることでusers/sign_inといったURLはdeviseのコントローラーで処理されるようになります。
   resources :books, only: [:new, :index,:show,:edit,:create,:destroy,:update] do
-    resource :favorite, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
     # 単数形にすると、/:idがURLに含まれなくなります。
     # コメント機能では「1人のユーザが１つの投稿に対して何度でもコメントできる」
     # という仕様だったため、destroyをする際にidを受け渡して
@@ -20,18 +20,15 @@ Rails.application.routes.draw do
 
     # しかし、いいね機能の場合は「1人のユーザーは1つの投稿に対して1回しか
     # いいねできない」という仕様であるため、destroyをする際にもユーザーidと
-    # 投稿(post_image)idが分かれば、どのいいねを削除すればいいのかが特定できます。 
+    # 投稿(post_image)idが分かれば、どのいいねを削除すればいいのかが特定できます。
     # そのため、いいねのidはURLに含める必要がない(params[:id]を使わなくても良い)ため、
     # resourcesではなくresourceを使ってURLに/:idを含めない形にしています。
 
     # このように、resourceは「それ自身のidが分からなくても、
     # 関連する他のモデルのidから特定できる」といった場合に用いることが多いです。
-    
-    
-    
-    
-    
-    resources :post_comments, only: [:create]
+
+
+    resources :book_comments, only: [:create, :destroy]
   end
   resources :users, only: [:index,:show,:edit,:update]
 

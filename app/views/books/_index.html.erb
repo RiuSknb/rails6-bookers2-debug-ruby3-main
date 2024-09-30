@@ -14,9 +14,12 @@
           <%= image_tag book.user.get_profile_image, size:'50x50' %>
           <% end %>
         </td>
-        <td><%= link_to book.title,book %></td>
+        <!--<td>%= link_to book.title,book %></td>-->
+        <td><%= link_to book.title,book, class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
-        <td><%= link_to "コメント数：#{book.post_comments.count} ", book_path(book.id) %></td>
+        <td><%= render "favorites/btn", book: book %></td>
+        <!--↑追記-->
+        <td>コメント数: <%= book.book_comments.count %></td>
       </tr>
     <% end %>
   </tbody>

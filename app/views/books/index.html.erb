@@ -10,23 +10,6 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'index', books: @books%>
-      <!--Favorite機能-->
-      <% if @book.favorited_by?(current_user) %>
-        <p>
-          <%= link_to book_favorite_path(@book), method: :delete do %>
-            ♥<%= @book.favorites.count %> いいね
-          <% end %>
-        </p>
-        <% else %>
-        <p>
-          <%= link_to book_favorite_path(@book), method: :post do %>
-            ♡<%= @book.favorites.count %> いいね
-          <% end %>
-        </p>
-      <% end %>
-      <!--Favorite機能ここまで-->
-
-      <p><%= link_to "コメント数：#{@book.post_comments.count} ", book_path(@book.id) %></p>
     </div>
   </div>
 </div>
