@@ -7,7 +7,26 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  
+
+
+  # フォローする側としての関係
+  has_many :relationships, foreign_key: :follower_id, dependent: :destroy
+      # has_many :relationships: このユーザーがフォロワーとして持つリレーションシップを定義します。
+      # foreign_key: :follower_id　：フォロワーIDを指定しています。
+
+  has_many :followed_users, through: :relationships, source: :followed
+      # has_many :followed_users: このユーザーがフォローしているユーザーのリストを取得します。
+      # through オプションを使って、relationships を介して followed に関連するユーザーを指定しています。
+
+
+  # フォローされる側の関係
+  has_many :inverse_relationships, class_name: 'Relationship', foreign_key: :followed_id, dependent: :destroy
+      # has_many :inverse_relationships: このユーザーがフォローされる側のリレーションシップを定義します。
+      # ここでは、クラス名を明示的に指定することで、逆の関係を作成しています。
+  has_many :followers, through: :inverse_relationships, source: :follower
+      # has_many :followers: このユーザーをフォローしているユーザーのリストを取得します。
+
+
   has_one_attached :profile_image
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
