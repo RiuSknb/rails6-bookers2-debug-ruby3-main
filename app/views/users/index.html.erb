@@ -1,17 +1,16 @@
  <div class='container px-5 px-sm-0'>
   <div class='row'>
-    <div class='col-md-3'>
+    <div class='col-md-3'>　  <!--左側の書式-->
       <h2>User info</h2>
-      <%= render 'info', user: current_user %>
-
+      <%= render 'info', user: current_user %>  <!--users/_info.html.erbの読み込み-->
       <h2 class="mt-3">New book</h2>
       <!--%= render 'form', book: @book %>-->
-      <%= render 'books/form', book: @book %>
+      <%= render 'books/form', book: @book %>　 <!--books/_form.html.erbの読み込み-->
     </div>
 
-    <div class='col-md-8 offset-md-1'>
+    <div class='col-md-8 offset-md-1'>    <!--右側の書式-->
       <h2>Users</h2>
-      <%= render 'index',users: @users %>
+      <%= render 'index',users: @users %>　<!--users/_index.html.erbの読み込み-->
     </div>
   </div>
 </div>

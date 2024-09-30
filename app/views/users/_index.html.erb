@@ -11,8 +11,15 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
+        <td>フォロー数：<%= user.followed_users.count %></td>
+        <td>フォロワー数：<%= user.followers.count %></td>
+        <td>フォローする</td>
+
         <!--<td>%= link_to 'Show', user %></td>-->
         <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
+        <!--"user_#{user.id}"は文字列補間を使って、クラス名にユーザーのIDを含めています。
+        例えば、ユーザーIDが5であれば、クラス名はuser_5となります。
+        これは、CSSやJavaScriptで個別のユーザーにスタイルや動作を適用する際に役立ちます。-->
       </tr>
     <% end %>
   </tbody>

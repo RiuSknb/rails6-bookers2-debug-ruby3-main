@@ -1,3 +1,5 @@
+<!--左上の個人データ-->
+
 <table class='table'>
   <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
   <tr>
@@ -7,6 +9,14 @@
   <tr>
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
+  </tr>
+  <tr>
+    <th>follows</th>
+    <th><%= user.followed_users.count %></th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th><%= user.followers.count %></th>
   </tr>
 </table>
 
