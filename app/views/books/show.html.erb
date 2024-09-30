@@ -11,19 +11,44 @@
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
+  		    <!--本のタイトル表示-->
           <td><%= link_to(@book.user) do %>
             <%= image_tag @book.user.get_profile_image, size:"100x100" %><br>
             <%= @book.user.name %>
             <% end %>
           </td>
+          <!--本の内容の表示-->
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
           <% end %>
+
+          <!--コメント数の追加-->
+          <td><p>コメント数：<%= @book.post_comments.count %></p></td>
         </tr>
       </table>
+
+
+
+      <!--コメントしたユーザーと、コメントの一覧-->
+
+      <% @book.post_comments.each do |post_comment| %>
+        <p>
+          <%= image_tag post_comment.user.get_profile_image, size:"100x100" %>
+          <%= post_comment.comment %>
+          <%= link_to 'Destroy', @book.post_comment, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%>
+        </p>
+        <p><%= link_to post_comment.user.name, user_path(post_comment.user)  %></p>
+      <% end %>
+
+
+
+      <%= form_with model: [@book, @post_comment] do |f| %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
     </div>
   </div>
 </div>
