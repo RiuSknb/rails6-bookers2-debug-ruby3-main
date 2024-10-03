@@ -11,11 +11,11 @@ class User < ApplicationRecord
 
 
   # フォローする側としての関係
-  has_many :relationships, foreign_key: :follower_id, dependent: :destroy
+  has_many :relationships, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
       # has_many :relationships: このユーザーがフォロワーとして持つリレーションシップを定義します。
       # foreign_key: :follower_id　：フォロワーIDを指定しています。
 
-  has_many :followed_users, through: :relationships, source: :followed
+  has_many :followings, through: :relationships, source: :followed
       # has_many :followed_users: このユーザーがフォローしているユーザーのリストを取得します。
       # through オプションを使って、relationships を介して followed に関連するユーザーを指定しています。
 
@@ -40,17 +40,17 @@ class User < ApplicationRecord
   end
 
   # フォローする
-  def follow(other_user)
-    followed_users << other_user unless self == other_user
+  def follow(user)
+    relationships.create(followed_id: user.id)
   end
 
   # フォロー解除する
-  def unfollow(other_user)
-    followed_users.delete(other_user)
+  def unfollow(user)
+    relationships.find_by(followed_id: user.id).destroy
   end
 
   # すでにフォローしているか確認する
-  def following?(other_user)
-    followed_users.include?(other_user)
+  def following?(user)
+    followings.include?(user)
   end
 end

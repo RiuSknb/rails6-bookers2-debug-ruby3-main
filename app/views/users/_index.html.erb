@@ -11,17 +11,9 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
-        <td>フォロー数：<%= user.followed_users.count %></td>
+        <td>フォロー数：<%= user.followings.count %></td>
         <td>フォロワー数：<%= user.followers.count %></td>
-        <td>
-          <% if current_user.following?(user) %>
-            <%= button_to 'フォローを解除する', unfollow_user_path(user), method: :delete, remote: true, class: "btn btn-danger" %>
-          <% else %>
-            <%= button_to 'フォローする', follow_user_path(user), method: :post, remote: true, class: "btn btn-primary" %>
-          <% end %>
-        </td>
-
-        <!--<td>%= link_to 'Show', user %></td>-->
+        <td><%= render "relationships/btn", user: user %></td>
         <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
         <!--"user_#{user.id}"は文字列補間を使って、クラス名にユーザーのIDを含めています。
         例えば、ユーザーIDが5であれば、クラス名はuser_5となります。

@@ -16,29 +16,6 @@ class UsersController < ApplicationController
   def edit
   end
 
-
-  # フォロー/フォロー解除のアクション追加
-  def follow
-    @user = User.find(params[:id])
-    current_user.follow(@user)
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
-  end
-
-  def unfollow
-    @user = User.find(params[:id])
-    current_user.unfollow(@user)
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
-  end
-
-
-
-
   def update
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "You have updated user successfully."
