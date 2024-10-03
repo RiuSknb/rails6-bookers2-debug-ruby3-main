@@ -1,15 +1,59 @@
-<p>検索結果</p>
+<!--検索に使用したキーワードの表示-->
+<p>
+  <%= @model == 'user' ? 'ユーザー' : '本' %> の検索結果を表示しています。
+  検索キーワード: <strong><%= @keyword %></strong>
+</p>
 
-<% if @model == "user" %>
-  <h2>ユーザーの検索結果</h2>
-  <% @results.each do |user| %>
-    <p><%= link_to user.name, user_path(user) %></p>
-  <% end %>
-<% elsif @model == "book" %>
-  <h2>投稿の検索結果</h2>
-  <% @results.each do |book| %>
-    <p><%= link_to book.title, book_path(book) %></p>
-  <% end %>
+<h2>検索結果</h2>
+
+<% if @model == 'user' %>
+  <!--<table class="table table-bordered">-->
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @results.each do |user| %>
+        <tr>
+          <td>
+            <%= image_tag user.get_profile_image, size: '50x50' %>
+          </td>
+          <td>
+            <%= link_to user.name, user_path(user) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% elsif @model == 'book' %>
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Opinion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @results.each do |book| %>
+        <tr>
+          <td>
+            <%= image_tag book.user.get_profile_image, size: '50x50' %>
+          </td>
+          <td>
+            <%= link_to book.title, book_path(book) %>
+          </td>
+          <td>
+            <%= link_to book.body, book_path(book) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
-  <p>該当するデータが見つかりませんでした。</p>
+  <p>「<strong><%= @keyword %></strong>」に一致する結果は見つかりませんでした。</p>
 <% end %>
