@@ -54,4 +54,9 @@
       </div>
     </div>
   </nav>
+  <%= form_with url: search_path, method: :get, local: true do |form| %>
+    <%= form.select :model, options_for_select([['User', 'user'], ['Book', 'book']]), prompt: '検索対象を選択' %>
+    <%= form.text_field :keyword, placeholder: 'キーワードを入力' %>
+    <%= form.submit '検索' %>
+  <% end %>
 </header>
