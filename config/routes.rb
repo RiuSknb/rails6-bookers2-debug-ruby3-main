@@ -30,7 +30,13 @@ Rails.application.routes.draw do
 
     resources :book_comments, only: [:create, :destroy]
   end
-  resources :users, only: [:index,:show,:edit,:update]
+
+  resources :users, only: [:index,:show,:edit,:update] do
+    member do
+      post 'follow'       # POSTリクエストでフォローを追加
+      delete 'unfollow'   # DELETEリクエストでフォローを解除
+    end
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

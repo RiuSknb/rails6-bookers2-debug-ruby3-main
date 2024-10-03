@@ -13,7 +13,13 @@
         <td><%= user.name %></td>
         <td>フォロー数：<%= user.followed_users.count %></td>
         <td>フォロワー数：<%= user.followers.count %></td>
-        <td>フォローする</td>
+        <td>
+          <% if current_user.following?(user) %>
+            <%= button_to 'フォローを解除する', unfollow_user_path(user), method: :delete, remote: true, class: "btn btn-danger" %>
+          <% else %>
+            <%= button_to 'フォローする', follow_user_path(user), method: :post, remote: true, class: "btn btn-primary" %>
+          <% end %>
+        </td>
 
         <!--<td>%= link_to 'Show', user %></td>-->
         <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>

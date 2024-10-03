@@ -1,0 +1,2 @@
+<!--フォローに関して、ビューをリアルタイムで更新するために、follow.js.erbおよびunfollow.js.erbを用意します。-->
+$(".user_<%= @user.id %>").html('<%= j render @user %>');

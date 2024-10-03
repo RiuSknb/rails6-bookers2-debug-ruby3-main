@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
 
 
+
   # フォローする側としての関係
   has_many :relationships, foreign_key: :follower_id, dependent: :destroy
       # has_many :relationships: このユーザーがフォロワーとして持つリレーションシップを定義します。
@@ -36,5 +37,20 @@ class User < ApplicationRecord
 
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
+  end
+
+  # フォローする
+  def follow(other_user)
+    followed_users << other_user unless self == other_user
+  end
+
+  # フォロー解除する
+  def unfollow(other_user)
+    followed_users.delete(other_user)
+  end
+
+  # すでにフォローしているか確認する
+  def following?(other_user)
+    followed_users.include?(other_user)
   end
 end
