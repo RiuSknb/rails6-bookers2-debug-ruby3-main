@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 # usersコントローラーにはログイン制限を掛けているため、ログインページへのリダイレクトが実行され再びログインページが呼び出されますが、これもusersのshowページとして呼び出されます。
 # このようにresources :usersの記述が上にあることによりログインページにアクセスしても、usersのshowページとして呼び出されるため無限ループが発生している状態です。
 # これを解消するために、devise_forをresources :usersの記述より上にすることでusers/sign_inといったURLはdeviseのコントローラーで処理されるようになります。
+  resources :direct_messages, only: [:create]
   resources :books, only: [:new, :index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create, :destroy]
     # 単数形にすると、/:idがURLに含まれなくなります。

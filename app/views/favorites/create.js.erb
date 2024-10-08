@@ -1,0 +1,7 @@
+document.addEventListener("turbolinks:load", function() {
+  <!--// Book IDをログ出力-->
+  console.log("Book ID: <%= @book.id %>");
+
+  <!--// ボタンのHTMLを更新-->
+  $("#book_<%= @book.id %> .btn").html("<%= j(render 'favorites/btn', book: @book) %>");
+});

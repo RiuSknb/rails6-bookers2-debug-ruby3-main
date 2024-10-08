@@ -8,7 +8,12 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    # @books = Book.all
+    @books = Book.joins(:favorites)
+                 .select('books.*, COUNT(favorites.id) as favorites_count')
+                 .where(favorites: { created_at: 1.week.ago..Time.current })
+                 .group('books.id')
+                 .order('favorites_count DESC')
     @book = Book.new
   end
 

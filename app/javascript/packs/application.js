@@ -7,11 +7,16 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "jquery"
-import "popper.js"
-import "bootstrap"
+import $ from "jquery"; // jQueryをインポート
+import "popper.js"; // Bootstrapのポッパー
+import "bootstrap"; // Bootstrapのインポート
 
-import "../stylesheets/application" 
+
+// jQueryをグローバルに利用可能にする
+window.$ = $;
+window.jQuery = $; // jQueryをwindowオブジェクトに追加
+
+import "../stylesheets/application"
 
 Rails.start()
 Turbolinks.start()

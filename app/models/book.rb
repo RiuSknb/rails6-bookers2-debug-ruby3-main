@@ -11,4 +11,9 @@ class Book < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
+  # いいねの数を返すメソッド
+  def favorites_count
+    favorites.size
+  end
+
 end

@@ -1,0 +1,10 @@
+<%= form_with(model: DirectMessage.new, url: direct_messages_path) do |f| %>
+  <%= f.hidden_field :receiver_id, value: @receiver.id %>
+  <div>
+    <%= f.label :content %>
+    <%= f.text_area :content, maxlength: 140 %>
+  </div>
+  <div>
+    <%= f.submit '送信' %>
+  </div>
+<% end %>

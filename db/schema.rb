@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_30_080353) do
+ActiveRecord::Schema.define(version: 2024_10_08_081219) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 2024_09_30_080353) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "direct_messages", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.text "content", limit: 140, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_direct_messages_on_receiver_id"
+    t.index ["sender_id"], name: "index_direct_messages_on_sender_id"
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
@@ -86,4 +96,6 @@ ActiveRecord::Schema.define(version: 2024_09_30_080353) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "direct_messages", "users", column: "receiver_id"
+  add_foreign_key "direct_messages", "users", column: "sender_id"
 end
