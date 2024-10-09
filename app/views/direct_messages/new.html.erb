@@ -1,4 +1,4 @@
-<%= form_with(model: DirectMessage.new, url: direct_messages_path) do |f| %>
+<%= form_with(model: @direct_message, url: direct_messages_path) do |f| %>
   <%= f.hidden_field :receiver_id, value: @receiver.id %>
   <div>
     <%= f.label :content %>

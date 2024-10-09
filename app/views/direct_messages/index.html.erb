@@ -1,0 +1,15 @@
+<h1>ダイレクトメッセージ</h1>
+
+<h2>受信メッセージ</h2>
+<% @received_messages.each do |message| %>
+  <p><strong>From:</strong> <%= message.sender.name %></p>
+  <p><%= message.content %></p>
+  <hr>
+<% end %>
+
+<h2>送信メッセージ</h2>
+<% @sent_messages.each do |message| %>
+  <p><strong>To:</strong> <%= message.receiver.name %></p>
+  <p><%= message.content %></p>
+  <hr>
+<% end %>

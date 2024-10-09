@@ -27,6 +27,10 @@ class User < ApplicationRecord
   has_many :followers, through: :inverse_relationships, source: :follower
       # has_many :followers: このユーザーをフォローしているユーザーのリストを取得します。
 
+  has_many :sent_direct_messages, class_name: 'DirectMessage', foreign_key: 'sender_id'
+  has_many :received_direct_messages, class_name: 'DirectMessage', foreign_key: 'receiver_id'
+
+
 
   has_one_attached :profile_image
 

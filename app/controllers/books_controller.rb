@@ -4,6 +4,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    @book.increment!(:view_count) # 視聴回数を1増やす
     @book_comment = BookComment.new
   end
 

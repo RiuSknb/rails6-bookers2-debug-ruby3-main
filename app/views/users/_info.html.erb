@@ -12,25 +12,29 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to user.followings.count, user_followings_path(user) %></th>
+    <th><div style="text-align: center;"><%= link_to user.followings.count, user_followings_path(user) %></div></th>
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= link_to user.followers.count, user_followers_path(user) %></th>
+    <th><div style="text-align: center;"><%= link_to user.followers.count, user_followers_path(user) %></div></th>
   </tr>
   <tr>
     <th>
-      <% if current_user.following?(user) %>
-        <%= link_to 'フォロー解除', user_followers_path(user), method: :delete, class: 'btn btn-danger' %>
-      <% else %>
-        <%= link_to 'フォローする',  user_followers_path(user), method: :post, class: 'btn btn-primary' %>
+      <% if current_user != user %>
+        <% if current_user.following?(user) %>
+          <%= link_to "フォロー<br>解除".html_safe, user_relationships_path(user), method: :delete, class: 'btn btn-danger', style: "white-space: nowrap;" %>
+        <% else %>
+          <%= link_to "フォロー<br>する".html_safe, user_relationships_path(user), method: :post, class: 'btn btn-primary', style: "white-space: nowrap;" %>
+        <% end %>
       <% end %>
     </th>
     <th>
-      <% if current_user.following?(user) %>
-        <%= link_to 'メッセージ', direct_messages_path(receiver_id: user.id), class: 'btn btn-success' %>
-      <% else %>
-        <%= link_to 'フォローしてDM', user_followers_path(user), method: :post, class: 'btn btn-secondary' %>
+      <% if current_user != user %>
+        <% if current_user.following?(user) %>
+          <%= link_to 'DMを送信'.html_safe, new_direct_message_path(receiver_id: user.id), class: 'btn btn-success' %>
+        <% else %>
+          <p style="text-align: center;">フォローして<br>DM</p>
+        <% end %>
       <% end %>
     </th>
   </tr>
